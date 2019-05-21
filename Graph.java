@@ -176,9 +176,9 @@ public class Graph {
 	}
 	
 	public void Graph4() {
-		GameArena window4 = new GameArena(500,500);	
+	 GameArena window4 = new GameArena(500,500);	
 		
-		Ball[] ballArray = new Ball[6];
+		Ball[] ballArray = new Ball[7];
 		Line[] lineArray = new Line[7];
 		Text[] textArray = new Text[7];
 		
@@ -187,7 +187,7 @@ public class Graph {
 		
 		
 		String[] TextChoice = {"A", "B", "C", "D", "E", "F"};
-		System.out.print("How many Nodes would you like? (6 max)  \n");
+		System.out.print("How many Nodes would you like? (5 max)  \n");
 		graphChoice = input2.nextInt();
 		
 		for(int i = 1; i <= graphChoice; i++) {
@@ -203,77 +203,123 @@ public class Graph {
 			ballArray[i]  = new Ball(ball1X, ball1Y, 20, "BLUE");
 					
 			window4.addBall(ballArray[i]);
-			window4.addText(textArray[i]);
 						
 		}
 		window4.update();
-		for (int Y = 0; Y != 1; Y++) {
-		System.out.print("What Would you like to do?\n 1 = Add Text \n 2 - Move Node \n 3 = Add Arc\n 4 = exit\n");
-		int Choice = input2.nextInt();
+		int Y = 1;
 		
-		if(Choice == 1) {
+		while (Y == 1) {
+			System.out.print("What Would you like to do?\n 1 = Move Node  \n 2 = Add Text \n 3 = Add Arc\n 4 = exit\n");
+			int Choice = input2.nextInt();
+	
+		
+			if(Choice == 1) {
+				MoveNode(window4, ballArray, Choice);
+				}	
 			
-			for(int i = 1; i <=graphChoice; i++) {
-			System.out.print("Which Node would you like to be A?(Nodes 0, 1, 2, 3 etc)\n");
+			else if (Choice == 2) {
+				TextNode(window4, ballArray, graphChoice);
+			}
+			else if (Choice == 3) {
+				addArc(window4, ballArray, graphChoice);
+			}
+			else if (Choice == 4) {
+				System.out.print("Exit");
+				Y = 0;
+				System.exit(0);
+			}
+			else {
+				System.out.print("Please Enter One of the following numbers");
+			}
+		
+		}
+				
+	}
+
+	private void MoveNode(GameArena window4, Ball ballArray[], int graphChoice) {
+
+		Scanner input2 = new Scanner( System.in );
+		int i = 0;
+		
+		while( i == 0) {
+		System.out.print("Which node would you like to move?(1,2,3 etc) \n");
+		int Node = input2.nextInt();
+		
+		System.out.print("Please enter the X Coordinates? \n");
+		int NodeX = input2.nextInt();
+		ballArray[Node].setXPosition(NodeX);
+		
+		System.out.print("Please Enter the Y Coordinates \n");
+		int NodeY = input2.nextInt();
+		ballArray[Node].setXPosition(NodeY);	
+		
+		window4.update();
+		
+		System.out.print("Would you like to move another?(0 = Yes 1 == No)\n");
+		int YorN = input2.nextInt();
+			if(YorN == 1) {
+		
+				break;
+			
+			}
+			else{
+			
+			}	
+		}
+	}
+
+	private void TextNode( GameArena window4, Ball ballArray[], int graphChoice) {
+			
+		Scanner input2 = new Scanner( System.in );
+		
+		for(int i = 0; i < graphChoice; i++) {
+	
+			String[] TextChoice = {"A", "B", "C", "D", "E", "F"};
+			Ball[] ball = new Ball[7];	
+			ball = ballArray;
+			
+			System.out.print("Which node do you want to choose? \n");
 			int NodeChoice = input2.nextInt();
-			
+				
+			String Letter = TextChoice[i];
+		
 			int nodeX = ballArray[NodeChoice].getXPosition();
 			int nodeY = ballArray[NodeChoice].getYPosition();
-			
-			String Letter = TextChoice[i-1];
 			
 			Text nodeText1 = new Text (20, nodeX-10, nodeY+5, Letter, "BLACK");	
 
 			window4.addText(nodeText1);
-
-			}	
-			
-			window4.update();
+	
 		}
-		else if (Choice == 2) {
-
-			System.out.print("Move Node");
-			
-		}
-		else if (Choice == 3) {
-			
-			System.out.print("How many Arcs do you want? \n");
-			int Answer = input2.nextInt();
-			
-			for(int t = 0; t < Answer; t++ ) {
+		
+		window4.update();
+	}
+	
+	private void addArc( GameArena window4, Ball ballArray[], int graphChoice) {
+		
+		Scanner input2 = new Scanner( System.in );
+		System.out.print("How many Arcs do you want? \n");
+		int Answer = input2.nextInt();
+		
+		for(int t = 0; t < Answer; t++ ) {
 			System.out.print("Which Node would you like to connect first\n");
 			int arcChoice = input2.nextInt();
-			
+		
 			int arcX = ballArray[arcChoice].getXPosition();
 			int arcY = ballArray[arcChoice].getYPosition();
-			
+		
 			System.out.print("Which Node would you like to connect Second\n");
 			int arcChoice2 = input2.nextInt();
-			
+		
 			int arcX2 = ballArray[arcChoice2].getXPosition();
 			int arcY2 = ballArray[arcChoice2].getYPosition();
-			
+		
 			Line arc1 = new Line (arcX, arcY, arcX2, arcY2, 3, "WHITE");
-			
+		
 			window4.addLine(arc1);
-						
-			window4.update();
-			}
-		}
-		else if (Choice == 4) {
-			
-
-			System.out.print("Exit");
-			Y = 1;
-		}
-		else {
-		
-			System.out.print("Please Enter One of the following numbers");
 			
 		}
-		
-		}
-				
+		window4.update();
 	}
 }
 
