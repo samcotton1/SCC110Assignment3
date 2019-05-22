@@ -17,8 +17,19 @@ import java.util.Random;
  *Displaying the Game Arena and objects in it 
  * 
  */
-
 public class Graph {
+public static void main (String[] args) {
+
+Graph g = new Graph();
+	
+}
+
+Graph(){
+	
+	GUI();
+	
+}
+
 /**
  * 
  * GUI function
